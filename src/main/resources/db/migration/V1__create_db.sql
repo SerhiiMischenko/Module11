@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS SpaceTravel_DB;
+CREATE DATABASE IF NOT EXISTS SpaceDB;
 
-USE SpaceTravel_DB;
+USE SpaceDB;
 
 CREATE TABLE Client (
   id INT NOT NULL AUTO_INCREMENT,
@@ -24,4 +24,4 @@ CREATE TABLE Ticket (
   FOREIGN KEY (client_id) REFERENCES Client(id),
   FOREIGN KEY (from_planet_id) REFERENCES Planet(id),
   FOREIGN KEY (to_planet_id) REFERENCES Planet(id)
-);}
+);

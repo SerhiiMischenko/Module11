@@ -29,4 +29,3 @@ VALUES
   (8, 'VENUS', 'MARS'),
   (9, 'JUPITER', 'MARS'),
   (10, 'SATURN', 'VENUS');
-}

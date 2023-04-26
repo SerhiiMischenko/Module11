@@ -10,7 +10,7 @@ import java.util.Properties;
 public class InitDb {
 
     public void initDbMethod () {
-        File file = new File("/Users/serhiimischenko/IdeaProjects/Module04/src/main/resources/" +
+        File file = new File("/Users/serhiimischenko/IdeaProjects/Module10/src/main/resources/" +
                 "properties.properties");
         Properties properties = new Properties();
         try {
