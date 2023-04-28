@@ -18,5 +18,7 @@
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <!-- mapping class="com.mcnz.jpa.examples.Player" / -->
+        <mapping class = "org.example.entity.Client"/>
+        <mapping class = "org.example.entity.Planet"/>
     </session-factory>
 </hibernate-configuration>
