@@ -12,23 +12,35 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ClientCrudService {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public ClientCrudService() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public Client getClientById(long id) {
-        Session session = sessionFactory.openSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Client.class);
-        Root<Client> root = criteriaQuery.from(Client.class);
-        Predicate idPredicate = criteriaBuilder.equal(root.get("id"), id);
-        criteriaQuery.where(idPredicate);
-        Query query = session.createQuery(criteriaQuery);
-        Client client = (Client) ((org.hibernate.query.Query<?>) query).uniqueResult();
-        session.close();
+    public Object getClient(Long id) {
+        if(id == null) {
+            Session session = sessionFactory.openSession();
+            session.get(Client.class, 1L);
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
+            criteriaQuery.from(Client.class);
+            Query query = session.createQuery(criteriaQuery);
+            List clientList = query.getResultList();
+            session.close();
 
-        return client;
+            return clientList;
+        }
+            Session session = sessionFactory.openSession();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
+            Root<Client> root = criteriaQuery.from(Client.class);
+            Predicate idPredicate = criteriaBuilder.equal(root.get("id"), id);
+            criteriaQuery.where(idPredicate);
+            org.hibernate.query.Query<?> query = session.createQuery(criteriaQuery);
+            Client client = (Client) query.uniqueResult();
+            session.close();
+
+            return client;
     }
 }
