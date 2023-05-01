@@ -10,11 +10,11 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Getter
-@Setter
+@Setter()
 public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
 
     @Override

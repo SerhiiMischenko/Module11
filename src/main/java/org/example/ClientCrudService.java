@@ -7,8 +7,6 @@ import org.hibernate.SessionFactory;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ClientCrudService {
@@ -18,10 +16,19 @@ public class ClientCrudService {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
+    public void createClient(String clientName) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Client client = new Client();
+        client.setName(clientName);
+        session.save(client);
+        session.getTransaction().commit();
+        session.close();
+    }
+
     public Object getClient(Long id) {
         Session session = sessionFactory.openSession();
         if(id == null) {
-            session.get(Client.class, 1L);
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
             criteriaQuery.from(Client.class);
@@ -31,16 +38,7 @@ public class ClientCrudService {
 
             return clientList;
         }else {
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
-            Root<Client> root = criteriaQuery.from(Client.class);
-            Predicate idPredicate = criteriaBuilder.equal(root.get("id"), id);
-            criteriaQuery.where(idPredicate);
-            org.hibernate.query.Query<?> query = session.createQuery(criteriaQuery);
-            Client client = (Client) query.uniqueResult();
-            session.close();
-
-            return client;
+            return session.get(Client.class, id);
         }
     }
 }
