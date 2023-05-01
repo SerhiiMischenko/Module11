@@ -19,8 +19,8 @@ public class ClientCrudService {
     }
 
     public Object getClient(Long id) {
+        Session session = sessionFactory.openSession();
         if(id == null) {
-            Session session = sessionFactory.openSession();
             session.get(Client.class, 1L);
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
@@ -30,8 +30,7 @@ public class ClientCrudService {
             session.close();
 
             return clientList;
-        }
-            Session session = sessionFactory.openSession();
+        }else {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
             Root<Client> root = criteriaQuery.from(Client.class);
@@ -42,5 +41,6 @@ public class ClientCrudService {
             session.close();
 
             return client;
+        }
     }
 }

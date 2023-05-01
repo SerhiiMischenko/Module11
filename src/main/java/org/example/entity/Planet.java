@@ -14,6 +14,11 @@ import java.io.Serializable;
 public class Planet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "id = " + id + ", name = " + name;
+    }
 }
