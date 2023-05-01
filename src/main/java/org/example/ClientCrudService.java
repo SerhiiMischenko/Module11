@@ -41,4 +41,22 @@ public class ClientCrudService {
             return session.get(Client.class, id);
         }
     }
+    public void updateClient(Long id, String newName) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Client client = session.get(Client.class, id);
+        client.setName(newName);
+        session.update(client);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
+    public void deleteClient(Long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(session.get(Client.class, id));
+        session.getTransaction().commit();
+        session.close();
+    }
 }

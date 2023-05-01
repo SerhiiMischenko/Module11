@@ -13,7 +13,6 @@ import java.io.Serializable;
 @Setter
 public class Planet implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String name;
 
