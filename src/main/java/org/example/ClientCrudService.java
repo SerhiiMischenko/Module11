@@ -42,7 +42,7 @@ public class ClientCrudService {
             return session.get(Client.class, id);
         }
     }
-    public void updateClient(Long id, String newName) {
+    public void updateTicket(Long id, String newName) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Client client = session.get(Client.class, id);
