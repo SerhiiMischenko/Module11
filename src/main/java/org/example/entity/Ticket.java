@@ -1,7 +1,6 @@
 package org.example.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class Ticket implements Serializable {
 
     public Ticket(Client client, Planet startPlanet, Planet endPlanet) {
@@ -23,18 +21,21 @@ public class Ticket implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_planet_id", nullable = false)
     private Planet startPlanet;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_planet_id", nullable = false)
     private Planet endPlanet;
 
+    public Ticket() {
+
+    }
 
     @Override
     public String toString() {
@@ -42,4 +43,3 @@ public class Ticket implements Serializable {
                 ", end planet = " + endPlanet.getName();
     }
 }
-

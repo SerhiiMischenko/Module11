@@ -4,7 +4,6 @@ import org.example.hibernate.HibernateUtil;
 import org.example.entity.Ticket;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

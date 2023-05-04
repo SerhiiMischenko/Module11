@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,12 +18,15 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy="Client")
-    private Set<Ticket> tickets;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ticket> tickets = new HashSet<>();
 
     @Override
     public String toString() {
-        return "id = " + id + ", name = " + name;
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -1,25 +1,26 @@
 package org.example.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 public class Planet implements Serializable {
     @Id
     private String id;
     private String name;
-    @OneToMany(mappedBy="Planet")
-    private Set<Ticket> startPlanet;
-    @OneToMany(mappedBy="Planet")
-    private Set<Ticket> endPlanet;
+
+    @OneToMany(mappedBy = "startPlanet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ticket> startingTickets = new HashSet<>();
+
+    @OneToMany(mappedBy = "endPlanet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ticket> endingTickets = new HashSet<>();
 
     @Override
     public String toString() {
