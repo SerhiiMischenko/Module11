@@ -1,4 +1,4 @@
-package org.example.FlyWay;
+package org.example.flyway;
 
 import org.flywaydb.core.Flyway;
 
