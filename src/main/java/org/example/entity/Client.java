@@ -18,7 +18,7 @@ public class Client implements Serializable {
     private Long id;
     private String name;
     @OneToMany(mappedBy="Client")
-    private Set<Ticket> addresses;
+    private Set<Ticket> tickets;
 
 
     @Override
