@@ -4,11 +4,6 @@ import org.example.hibernate.HibernateUtil;
 import org.example.entity.Ticket;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.util.List;
-
 
 public class TicketCrudService {
     private final SessionFactory sessionFactory;
@@ -25,30 +20,20 @@ public class TicketCrudService {
         session.close();
     }
 
-    public Object getTicket(Long id) {
+    public Ticket getTicket(Ticket ticket) {
         Session session = sessionFactory.openSession();
-        if (id == null) {
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Ticket> criteriaQuery = criteriaBuilder.createQuery(Ticket.class);
-            criteriaQuery.from(Ticket.class);
-            Query query = session.createQuery(criteriaQuery);
-            List ticketList = query.getResultList();
-            session.close();
-
-            return ticketList;
-        } else {
-            return session.get(Ticket.class, id);
-        }
+        ticket = session.get(Ticket.class, ticket.getId());
+        return ticket;
     }
 
     public void updateTicket(Session session, Ticket ticket) {
         session.update(ticket);
     }
 
-    public void deleteTicket(Long id) {
+    public void deleteTicket(Ticket ticket) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.delete(session.get(Ticket.class, id));
+        session.delete(ticket);
         session.getTransaction().commit();
         session.close();
     }
